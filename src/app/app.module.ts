@@ -30,7 +30,7 @@ import { NumberOnlyDirective } from './number-only.directive';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 import { ToastrModule } from 'ngx-toastr';
-import { PiiFormComponent } from './pii-form/pii-form.component';
+import { PiiFormComponent } from './components/pii-form/pii-form.component';
 
 @NgModule({
   declarations: [
