@@ -7,7 +7,12 @@ import { HttpService } from '../../services/http.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { environment } from '../../../environment/environment';
-import { ELEMENT_DATA, PeriodicElement, ReplaceUnderscorePipe } from './pii-list.model';
+import {
+  ELEMENT_DATA,
+  PeriodicElement,
+  ReplaceUnderscorePipe,
+} from './pii-list.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pii-list',
@@ -19,13 +24,14 @@ import { ELEMENT_DATA, PeriodicElement, ReplaceUnderscorePipe } from './pii-list
 export class PiiListComponent {
   http = inject(HttpService);
   dialog = inject(MatDialog);
-  displayedColumns: string[] = ['company_id', 'fraud_type', 'count', 'id'];
+  toastr = inject(ToastrService);
+  displayedColumns: string[] = ['user_id', 'action_type', 'count', 'id'];
   selectedOrder: PeriodicElement = {
     id: 0,
-    company_id: '',
+    user_id: '',
     is_fraud: false,
     is_approved: false,
-    fraud_type: '',
+    action_type: '',
     count: '',
   };
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -37,22 +43,29 @@ export class PiiListComponent {
   }
   getData = async () => {
     let dataSource: PeriodicElement[] = await firstValueFrom(
-      this.http.requestByUrl(`${environment.API_URL}/v1/fraud-approvals/list`)
+      // v1/pii-fraud/list'
+      this.http.requestByUrl(`${environment.API_URL}/v1/pii-fraud/list`)
     );
+
     // this.dataSource = dataSource "is_approved"
     this.dataSource.data = dataSource.filter(
-      (item: PeriodicElement) => item.is_approved !== null
+      (item: PeriodicElement) => item.is_approved === null
     );
   };
   markShipment = async (flag: boolean, data: any) => {
-    let data1 = await firstValueFrom(
-      this.http.postByUrl(`${environment.API_URL}/v1/fraud-approvals/update`, {
+    let response: PeriodicElement = await firstValueFrom(
+      this.http.postByUrl(`${environment.API_URL}/v1/pii-fraud/update`, {
         id: this.selectedOrder.id,
         is_fraud: flag,
         is_approved: !flag,
         approve_remarks: data,
       })
     );
+    if (response && response.is_approved) {
+      this.toastr.success('Thank you for your confirmation!');
+    } else {
+      this.toastr.success('Thank you. We will take action on this!');
+    }
     this.getData();
   };
   openErrorDialog(data: PeriodicElement) {
