@@ -3,11 +3,11 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ELEMENT_DATA, PeriodicElement } from './shipment.model';
 import { firstValueFrom } from 'rxjs';
-import { HttpService } from '../services/http.service';
-import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { HttpService } from '../../services/http.service';
+import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { environment } from '../../environment/environment';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { environment } from '../../../environment/environment';
 @Component({
   selector: 'app-shipment-lost-list',
   templateUrl: './shipment-lost-list.component.html',
