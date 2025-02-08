@@ -27,7 +27,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
 
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { NumberOnlyDirective } from './number-only.directive'
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component'
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { PiiListComponent } from './pii-list/pii-list.component'
+import { ToastrModule } from 'ngx-toastr'
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     DashboardComponent,
     NumberOnlyDirective,
     ConfirmationDialogComponent,
+    PiiListComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     MatDialogModule,
     MatButtonModule,
     SweetAlert2Module.forRoot(),
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent],

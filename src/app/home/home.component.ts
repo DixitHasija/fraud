@@ -4,6 +4,10 @@ import { firstValueFrom } from 'rxjs'
 import { MatDateFormats } from '@angular/material/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component'
+import { environment } from '../../environment/environment'
+import moment from 'moment'
+import { ToastrService } from 'ngx-toastr'
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component'
 
 @Component({
   selector: 'app-home',
@@ -13,6 +17,8 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component'
 export class HomeComponent {
   http = inject(HttpService)
   dialog = inject(MatDialog)
+  toastr = inject(ToastrService)
+
   today: Date = new Date() // Set today’s date
 
   formData = {
@@ -22,47 +28,77 @@ export class HomeComponent {
     lost_shipment: '',
   }
   getData = async () => {
-    // let data = await firstValueFrom(
-    //   this.http.requestByUrl(
-    //     'https://cfe4-14-194-36-134.ngrok-free.app/v1/fraud-approvals/list'
-    //   )
-    // )
 
-    let data1 = await firstValueFrom(
+    let data = { ...this.formData }
+    data['date'] = moment(this.formData.date).format(
+      'YYYY/MM/DD'
+    ) as unknown as Date
+    let response: { message: string } = await firstValueFrom(
       this.http.postByUrl(
-        'https://cfe4-14-194-36-134.ngrok-free.app/v1/fraud-detection/shipment-lost',
-        this.formData
+        `${environment.API_URL}/v1/fraud-detection/shipment-lost`,
+        data
       )
     )
 
-    this.openErrorDialog()
-    /**
+    if (response['message'] !== 'Legit') {
+      this.toastr.success('This Shipment is Legit!');
+      this.formData = {
+        date: new Date(),
+        seller_id: '',
+        total_shipment: '',
+        lost_shipment: '',
+      }
+    } else {
+      this.openErrorDialog()
+    }
 
-     */
   }
-  convertDate(inputDate: string): string {
-    const [month, day, year] = inputDate.split('/') // Split MM/DD/YYYY
-    return `${year}-${month}-${day}` // Reformat to YYYY/MM/DD
-  }
+
 
   onLoad = () => {
-
     this.getData()
   }
   openErrorDialog() {
-    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '600px',
       data: {
-        yesButtonText: "",
-        noButtonText: "",
-        title: "",
-        info: ""
-      }
+        noButtonText: '🚨 Report as Fraud',
+        yesButtonText: '✅ Confirm as Normal ',
+        title: 'Action Required: Anomaly Detection Alert?',
+        info: 'An anomaly has been detected and requires your review. Please take the necessary action.',
+        onYesClick: (data: any) => {
+          this.markShipment(false, data)
+        },
+        onNoClick: (data: any) => {
+
+          this.markShipment(true, data)
+        },
+        comment: true,
+      },
     })
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog result:', result) // true if Yes, false if No
-    })
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   console.log('Dialog result:', result) // true if Yes, false if No
+    // })
   }
+  markShipment = async (flag: boolean, data: any) => {
 
+    let data1 = await firstValueFrom(
+      this.http.postByUrl(
+        `${environment.API_URL}/v1/fraud-approvals/update`,
+        {
+          id: this.formData.seller_id,
+          is_fraud: flag,
+          is_approved: !flag,
+          approve_remarks: data,
+        }
+      )
+    )
+    this.formData = {
+      date: new Date(),
+      seller_id: '',
+      total_shipment: '',
+      lost_shipment: '',
+    }
+  }
 }

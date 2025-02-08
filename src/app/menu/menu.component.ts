@@ -20,8 +20,16 @@ export class MenuComponent {
       key: 'home',
     },
     {
-      title: 'Shipment List',
+      title: 'Shipment Lost List',
       key: 'shipment_lost_list',
+    },
+    {
+      title: 'PII List',
+      key: 'pii_list',
+    },
+    {
+      title: 'PII Form',
+      key: 'pii_form',
     },
   ]
   currentRoute: string = this.menus[0].key
