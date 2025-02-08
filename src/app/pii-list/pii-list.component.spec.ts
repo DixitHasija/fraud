@@ -8,10 +8,9 @@ describe('PiiListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PiiListComponent]
-    })
-    .compileComponents();
-    
+      declarations: [PiiListComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PiiListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

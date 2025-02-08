@@ -1,6 +1,11 @@
-import { HttpClient, HttpClientModule, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 type TParam = string | number | boolean;
 
@@ -13,17 +18,14 @@ type HttpExtras = {
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(
-    private httpClient: HttpClient,
-
-  ) { }
+  constructor(private httpClient: HttpClient) {}
 
   putToUrl<T>(
     url: string,
     body: unknown,
     params = {},
     headers?: HttpHeaders,
-    extras?: HttpExtras,
+    extras?: HttpExtras
   ) {
     params = this.getQueryParam(params);
     return this.httpClient.put(url, body, {
@@ -57,5 +59,4 @@ export class HttpService {
       headers,
     }) as Observable<T>;
   }
-
 }

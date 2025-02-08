@@ -1,5 +1,5 @@
-import { Component } from '@angular/core'
-import { Router } from '@angular/router'
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +7,7 @@ import { Router } from '@angular/router'
   styleUrl: './menu.component.css',
 })
 export class MenuComponent {
-  constructor(private router: Router) {
-
-  }
+  constructor(private router: Router) {}
   menus = [
     {
       title: 'Dashboard',
@@ -31,22 +29,20 @@ export class MenuComponent {
       title: 'PII Form',
       key: 'pii_form',
     },
-  ]
-  currentRoute: string = this.menus[0].key
+  ];
+  currentRoute: string = this.menus[0].key;
   ngOnInit() {
     const currentRoute = this.router.url.split('/').pop();
     if (currentRoute) {
       this.currentRoute = currentRoute;
-      this.currentRoute = this.menus[0].key
+      this.currentRoute = this.menus[0].key;
     } else {
-      this.currentRoute = this.menus[0].key
+      this.currentRoute = this.menus[0].key;
     }
   }
 
-
   onMenuClick = (key: string) => {
-
-    this.currentRoute = key
-    this.router.navigate([`/${this.currentRoute}`])
-  }
+    this.currentRoute = key;
+    this.router.navigate([`/${this.currentRoute}`]);
+  };
 }

@@ -1,11 +1,10 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appNumberOnly]'
+  selector: '[appNumberOnly]',
 })
 export class NumberOnlyDirective {
-
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef) {}
 
   @HostListener('input', ['$event'])
   onInputChange(event: Event) {
