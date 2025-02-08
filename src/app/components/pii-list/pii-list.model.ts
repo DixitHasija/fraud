@@ -15,5 +15,9 @@ export const ELEMENT_DATA: PeriodicElement[] = [
     is_approved: false,
     fraud_type: '',
     count: '',
-  }
+  },
 ];
+
+export const ReplaceUnderscorePipe = (value: string) => {
+  return value ? value.replace(/_/g, ' ') : '';
+};

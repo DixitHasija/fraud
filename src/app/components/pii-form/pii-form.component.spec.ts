@@ -8,10 +8,9 @@ describe('PiiFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PiiFormComponent]
-    })
-    .compileComponents();
-    
+      declarations: [PiiFormComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PiiFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

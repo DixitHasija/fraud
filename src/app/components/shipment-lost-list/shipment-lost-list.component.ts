@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ELEMENT_DATA, PeriodicElement } from './shipment.model';
 import { firstValueFrom } from 'rxjs';
 import { HttpService } from '../../services/http.service';
-import { ErrorDialogComponent } from '../../error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { environment } from '../../../environment/environment';
+import { ReplaceUnderscorePipe } from '../pii-list/pii-list.model';
 @Component({
   selector: 'app-shipment-lost-list',
   templateUrl: './shipment-lost-list.component.html',
@@ -76,6 +76,9 @@ export class ShipmentLostListComponent {
     // dialogRef.afterClosed().subscribe((result) => {
     //   console.log('Dialog result:', result) // true if Yes, false if No
     // })
+  }
+  replaceUnderscorePipe(data: string) {
+    return ReplaceUnderscorePipe(data);
   }
 
   // 'http://localhost:8010/v1/fraud-approvals/list'

@@ -41,7 +41,7 @@ import { PiiFormComponent } from './components/pii-form/pii-form.component';
     DashboardComponent,
     NumberOnlyDirective,
     ConfirmationDialogComponent,
-    PiiFormComponent,
+    PiiFormComponent
   ],
   imports: [
     BrowserModule,

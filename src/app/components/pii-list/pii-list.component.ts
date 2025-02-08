@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { firstValueFrom } from 'rxjs';
@@ -7,7 +7,7 @@ import { HttpService } from '../../services/http.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { environment } from '../../../environment/environment';
-import { ELEMENT_DATA, PeriodicElement } from './pii-list.model';
+import { ELEMENT_DATA, PeriodicElement, ReplaceUnderscorePipe } from './pii-list.model';
 
 @Component({
   selector: 'app-pii-list',
@@ -73,5 +73,8 @@ export class PiiListComponent {
         comment: true,
       },
     });
+  }
+  replaceUnderscorePipe(data: string) {
+    return ReplaceUnderscorePipe(data);
   }
 }
