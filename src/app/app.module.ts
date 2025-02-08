@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -28,8 +28,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NumberOnlyDirective } from './number-only.directive';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { PiiListComponent } from './pii-list/pii-list.component';
+
 import { ToastrModule } from 'ngx-toastr';
+import { PiiFormComponent } from './pii-form/pii-form.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     NumberOnlyDirective,
     ConfirmationDialogComponent,
-    PiiListComponent,
+    PiiFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { HttpService } from '../services/http.service';
+import { HttpService } from '../../services/http.service';
 import { firstValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { environment } from '../../environment/environment';
+import { environment } from '../../../environment/environment';
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-home',
