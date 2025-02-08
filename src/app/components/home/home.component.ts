@@ -37,7 +37,7 @@ export class HomeComponent {
       )
     );
 
-    if (response['message'] !== 'Legit') {
+    if (response['message'] === 'Legit') {
       this.toastr.success('This Shipment is Legit!');
       this.formData = {
         date: new Date(),
