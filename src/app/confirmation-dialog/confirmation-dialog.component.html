@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>
+    <span class="red mx-3">{{ data["title"] }}</span>
+</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>{{ data["info"] }}</h3>
+    <div *ngIf="data['comment']" class="input-group">
+
+        <textarea class="form-control"
+         aria-label="With textarea"
+          [(ngModel)]="comment"></textarea>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button
+        type="button"
+        class="btn btn-danger btn-lg m-3"
+        (click)="onNoClick()"
+    >
+        {{ data["noButtonText"] }}
+    </button>
+    <button
+        type="button"
+        class="btn btn-primary btn-lg m-3"
+        (click)="onYesClick()"
+    >
+        {{ data["yesButtonText"] }}
+    </button>
+</mat-dialog-actions>
