@@ -2,11 +2,11 @@ import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { firstValueFrom } from 'rxjs';
-import { HttpService } from '../services/http.service';
+import { HttpService } from '../../services/http.service';
 
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { environment } from '../../environment/environment';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { environment } from '../../../environment/environment';
 import { ELEMENT_DATA, PeriodicElement } from './pii-list.model';
 
 @Component({
