@@ -25,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NumberOnlyDirective } from './number-only.directive';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
