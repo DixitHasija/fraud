@@ -8,14 +8,7 @@ export interface PeriodicElement {
 }
 
 export const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    id: 0,
-    user_id: '',
-    is_fraud: false,
-    is_approved: false,
-    action_type: '',
-    count: '',
-  },
+
 ];
 
 export const ReplaceUnderscorePipe = (value: string) => {

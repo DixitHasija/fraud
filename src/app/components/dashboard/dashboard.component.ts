@@ -81,7 +81,11 @@ export class DashboardComponent implements OnInit {
       this.notApprovedApiUrl
     ).subscribe(
       (response) => {
-        const labels = response.map((item) => item.action_type);
+        let labels = response.map((item) =>
+          item.action_type
+            .replace(/_/g, ' ')
+            .replace(/\b\w/g, (char: string) => char.toUpperCase())
+        );
         const data = response.map((item) => item.count);
         const dataset = [
           {
