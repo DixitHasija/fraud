@@ -40,7 +40,7 @@ export class ShipmentLostListComponent {
     );
     // this.dataSource = dataSource "is_approved"
     this.dataSource.data = dataSource.filter(
-      (item: PeriodicElement) => item.is_approved !== null
+      (item: PeriodicElement) => (item.is_approved !== null && item.is_approved === false)
     );
   };
   markShipment = async (flag: boolean, data: any) => {

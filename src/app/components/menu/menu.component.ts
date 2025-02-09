@@ -14,14 +14,6 @@ export class MenuComponent {
       key: 'dashboard',
     },
     {
-      title: 'Shipment Lost Form',
-      key: 'home',
-    },
-    {
-      title: 'Shipment Lost List',
-      key: 'shipment_lost_list',
-    },
-    {
       title: 'PII List',
       key: 'pii_list',
     },
@@ -29,6 +21,15 @@ export class MenuComponent {
       title: 'PII Form',
       key: 'pii_form',
     },
+    {
+      title: 'Shipment Lost List',
+      key: 'shipment_lost_list',
+    },
+    {
+      title: 'Shipment Lost Form',
+      key: 'home',
+    },
+
   ];
   currentRoute: string = this.menus[0].key;
   ngOnInit() {
