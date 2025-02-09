@@ -25,6 +25,7 @@ export class PiiFormComponent {
     action_count: 0,
     action_type: 'customer_data_view',
   };
+  fraudId = 0;
   getData = async () => {
     let data = { ...this.formData };
     data['timestamp'] = moment(this.formData.timestamp).format(
@@ -32,7 +33,7 @@ export class PiiFormComponent {
     ) as unknown as Date;
     data.user_id = Number(data.user_id);
     data.action_count = Number(data.action_count);
-    let response: { message: string } = await firstValueFrom(
+    let response: { message: string, id: number } = await firstValueFrom(
       this.http.postByUrl(`${environment.API_URL}/v1/pii-detect/fraud`, data)
     );
 
@@ -45,6 +46,7 @@ export class PiiFormComponent {
         action_type: '',
       };
     } else {
+      this.fraudId = response['id'];
       this.openErrorDialog();
     }
   };
@@ -73,7 +75,7 @@ export class PiiFormComponent {
   markShipment = async (flag: boolean, data: any) => {
     let data1 = await firstValueFrom(
       this.http.postByUrl(`${environment.API_URL}/v1/pii-fraud/update`, {
-        id: this.formData.user_id,
+        id: this.fraudId,
         is_fraud: flag,
         is_approved: !flag,
         approve_remarks: data,

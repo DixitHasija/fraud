@@ -25,14 +25,15 @@ export class HomeComponent {
     total_shipment: 0,
     lost_shipment: 0,
   };
+  fraudId = 0;
   getData = async () => {
-    let data = { ...this.formData, 'action_type': 'lost_shipments' };
+    let data = { ...this.formData, action_type: 'lost_shipments' };
     data['details_date'] = moment(this.formData.details_date).format(
       'YYYY-MM-DD'
     ) as unknown as Date;
     data.total_shipment = Number(data.total_shipment);
     data.lost_shipment = Number(data.lost_shipment);
-    let response: { message: string } = await firstValueFrom(
+    let response: { message: string, id: number } = await firstValueFrom(
       this.http.postByUrl(
         `${environment.API_URL}/v1/fraud-detection/shipment-lost`,
         data
@@ -48,6 +49,8 @@ export class HomeComponent {
         lost_shipment: 0,
       };
     } else {
+      debugger;
+      this.fraudId = response['id'];
       this.openErrorDialog();
     }
   };
@@ -80,7 +83,7 @@ export class HomeComponent {
   markShipment = async (flag: boolean, data: any) => {
     let data1 = await firstValueFrom(
       this.http.postByUrl(`${environment.API_URL}/v1/fraud-approvals/update`, {
-        id: this.formData.company_id,
+        id: this.fraudId,
         is_fraud: flag,
         is_approved: !flag,
         approve_remarks: data,
