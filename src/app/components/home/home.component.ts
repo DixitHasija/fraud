@@ -20,16 +20,18 @@ export class HomeComponent {
   today: Date = new Date(); // Set today’s date
 
   formData = {
-    date: new Date(),
-    seller_id: '',
-    total_shipment: '',
-    lost_shipment: '',
+    details_date: new Date(),
+    company_id: '',
+    total_shipment: 0,
+    lost_shipment: 0,
   };
   getData = async () => {
-    let data = { ...this.formData };
-    data['date'] = moment(this.formData.date).format(
-      'YYYY/MM/DD'
+    let data = { ...this.formData, 'action_type': 'lost_shipments' };
+    data['details_date'] = moment(this.formData.details_date).format(
+      'YYYY-MM-DD'
     ) as unknown as Date;
+    data.total_shipment = Number(data.total_shipment);
+    data.lost_shipment = Number(data.lost_shipment);
     let response: { message: string } = await firstValueFrom(
       this.http.postByUrl(
         `${environment.API_URL}/v1/fraud-detection/shipment-lost`,
@@ -40,10 +42,10 @@ export class HomeComponent {
     if (response['message'] === 'Legit') {
       this.toastr.success('This Shipment is Legit!');
       this.formData = {
-        date: new Date(),
-        seller_id: '',
-        total_shipment: '',
-        lost_shipment: '',
+        details_date: new Date(),
+        company_id: '',
+        total_shipment: 0,
+        lost_shipment: 0,
       };
     } else {
       this.openErrorDialog();
@@ -78,17 +80,17 @@ export class HomeComponent {
   markShipment = async (flag: boolean, data: any) => {
     let data1 = await firstValueFrom(
       this.http.postByUrl(`${environment.API_URL}/v1/fraud-approvals/update`, {
-        id: this.formData.seller_id,
+        id: this.formData.company_id,
         is_fraud: flag,
         is_approved: !flag,
         approve_remarks: data,
       })
     );
     this.formData = {
-      date: new Date(),
-      seller_id: '',
-      total_shipment: '',
-      lost_shipment: '',
+      details_date: new Date(),
+      company_id: '',
+      total_shipment: 0,
+      lost_shipment: 0,
     };
   };
 }

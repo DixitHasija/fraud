@@ -92,7 +92,6 @@ export class DashboardComponent implements OnInit {
             ),
           },
         ];
-        debugger;
         this.createChart(
           'chart2',
           labels,

@@ -10,7 +10,7 @@
           matInput
           [matDatepicker]="picker"
           name="datePicker"
-          [(ngModel)]="formData.date"
+          [(ngModel)]="formData.details_date"
           [max]="today"
         />
         <mat-hint>MM/DD/YYYY</mat-hint>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="col-sm-6">
-      <label for="seller" class="form-label">Seller Id</label>
+      <label for="seller" class="form-label">Company Id</label>
       <input
         type="text"
         class="form-control"
@@ -32,8 +32,7 @@
         placeholder=""
         value=""
         required=""
-        [(ngModel)]="formData.seller_id"
-        appNumberOnly
+        [(ngModel)]="formData.company_id"
       />
       <div class="invalid-feedback">Valid last name is required.</div>
     </div>
@@ -72,8 +71,8 @@
   <div class="w-100 my-5 d-flex justify-content-end">
     <button
       [disabled]="
-        !formData.date ||
-        !formData.seller_id ||
+        !formData.details_date ||
+        !formData.company_id ||
         !formData.total_shipment ||
         !formData.lost_shipment
       "
